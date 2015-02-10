@@ -1,0 +1,6 @@
+Everything not held in the projects, installs, docs or root of your project 
+goes in here... everything means everything... even if it is needed at some point 
+to run from the root level of your project, have the init.sh automate it.
+
+Very important to keep the root of the template clean and consistent.
+
