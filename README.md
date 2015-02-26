@@ -85,6 +85,8 @@ See the tagged releases for the following versions of the product:
 
 - v1.0 - JBoss BPM Suite 6.0.3 and baggage delivery demo installed.
 
+![Digital Sign](https://github.com/jbossdemocentral/bpms-baggage-delivery-demo/blob/master/docs/demo-images/digi-sign.jpg?raw=true)
+
 ![Baggage Process](https://github.com/jbossdemocentral/bpms-baggage-delivery-demo/blob/master/docs/demo-images/baggage-process.png?raw=true)
 
 ![Lost Form](https://github.com/jbossdemocentral/bpms-baggage-delivery-demo/blob/master/docs/demo-images/baggage-lost-form.png?raw=true)
