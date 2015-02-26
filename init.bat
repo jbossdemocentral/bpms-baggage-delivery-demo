@@ -1,22 +1,10 @@
-# This is a generated example window init bat file for your project, just adjust as needed
-# for your needs. It is not a complete setup but parts that give you a few
-# hints on how to install a product, build a project and install it on the
-# application server (java project).
-#
-# This same principle can be applied to any language project, the point is
-# to keep it simple and clean (KISS). 
-#
-# Note everything is installed into the target directory, so now that we
-# have an easily repeatable installation of your project, you can throw away
-# the target directory at any time and run your init.sh to start over!
-#
 @ECHO OFF
 setlocal
 
 set PROJECT_HOME=%~dp0
-set DEMO=YOUR-PRJECT-DEMO
-set AUTHORS=YOUR-NAME
-set PROJECT=YOUR-GIT-REPO
+set DEMO=Baggage Delivery Demo
+set AUTHORS=Jason Milliron, Eric D. Schabell
+set PROJECT=git@github.com:jbossdemocentral/bpms-baggage-delivery-demo.git
 set PRODUCT=JBoss BPM Suite
 set JBOSS_HOME=%PROJECT_HOME%target\jboss-eap-6.1
 set SERVER_DIR=%JBOSS_HOME%\standalone\deployments\
@@ -32,43 +20,43 @@ REM wipe screen.
 cls
 
 echo.
-echo #################################################################
-echo ##                                                             ##   
-echo ##  Setting up the %DEMO%                          ##
-echo ##                                                             ##   
-echo ##                                                             ##   
-echo ##     ####  ####   #   #      ### #   # ##### ##### #####     ##
-echo ##     #   # #   # # # # #    #    #   #   #     #   #         ##
-echo ##     ####  ####  #  #  #     ##  #   #   #     #   ###       ##
-echo ##     #   # #     #     #       # #   #   #     #   #         ##
-echo ##     ####  #     #     #    ###  ##### #####   #   #####     ##
-echo ##                                                             ##   
-echo ##                                                             ##   
-echo ##  brought to you by,                                         ##   
-echo ##                     %AUTHORS%           ##
-echo ##                                                             ##   
-echo ##  %PROJECT%##
-echo ##                                                             ##   
-echo #################################################################
+echo #####################################################################
+echo ##                                                                 ##   
+echo ##  Setting up the %DEMO%                           ##
+echo ##                                                                 ##   
+echo ##                                                                 ##   
+echo ##     ####  ####   #   #      ### #   # ##### ##### #####         ##
+echo ##     #   # #   # # # # #    #    #   #   #     #   #             ##
+echo ##     ####  ####  #  #  #     ##  #   #   #     #   ###           ##
+echo ##     #   # #     #     #       # #   #   #     #   #             ##
+echo ##     ####  #     #     #    ###  ##### #####   #   #####         ##
+echo ##                                                                 ##   
+echo ##                                                                 ##   
+echo ##  brought to you by,                                             ##   
+echo ##                     %AUTHORS%            ##
+echo ##                                                                 ##
+echo ##  %PROJECT% ##
+echo ##                                                                 ##
+echo #####################################################################
 echo.
 
 REM make some checks first before proceeding.	
 if exist %SRC_DIR%\%BPMS% (
-	echo Product sources are present...
-	echo.
+        echo Product sources are present...
+        echo.
 ) else (
-	echo Need to download %BPMS% package from the Customer Support Portal
-	echo and place it in the %SRC_DIR% directory to proceed...
-	echo.
-	GOTO :EOF
+        echo Need to download %BPMS% package from the Customer Support Portal
+        echo and place it in the %SRC_DIR% directory to proceed...
+        echo.
+        GOTO :EOF
 )
 
-REM Move the old JBoss instance, if it exists, to the OLD position.
+REM remove existing install.
 if exist %JBOSS_HOME% (
-	echo - existing JBoss product install removed...
-	echo.
-	rmdir /s /q target"
-)
+         echo - existing JBoss product install removed...
+         echo.
+         rmdir /s /q target"
+ )
 
 REM Run installer.
 echo Product installer running now...
@@ -81,13 +69,35 @@ if not "%ERRORLEVEL%" == "0" (
 	GOTO :EOF
 )
 
+echo - setting up demo projects...
+echo.
+
+echo - enabling demo accounts role setup in application-roles.properties file...
+echo.
+xcopy /Y /Q "%SUPPORT_DIR%\application-roles.properties" "%SERVER_CONF%"
+echo. 
+
+mkdir "%SERVER_BIN%\.niogit\"
+xcopy /Y /Q /S "%SUPPORT_DIR%\bpm-suite-demo-niogit\*" "%SERVER_BIN%\.niogit\"
+echo. 
 
 echo.
 echo - setting up web services...
 echo.
-call mvn clean install -f %PRJ_DIR%/pom.xml
-xcopy /Y /Q "%PRJ_DIR%\acme-demo-flight-service\target\acme-flight-service-1.0.war" "%SERVER_DIR%"
-xcopy /Y /Q "%PRJ_DIR%\acme-demo-hotel-service\target\acme-hotel-service-1.0.war" "%SERVER_DIR%"
+xcopy /Y /Q "%SUPPORT_DIR%\ZipCodeServices.war" "%SERVER_DIR%"
+
+echo.
+echo - setting up standalone.xml configuration adjustments...
+echo.
+xcopy /Y /Q "%SUPPORT_DIR%\standalone.xml" "%SERVER_CONF%"
+echo.
+
+REM Optional: uncomment this to install mock data for BPM Suite
+REM
+REM echo - setting up mock bpm dashboard data...
+REM echo.
+REM xcopy /Y /Q "%SUPPORT_DIR%\1000_jbpm_demo_h2.sql" "%SERVER_DIR%\dashbuilder.war\WEB-INF\etc\sql"
+REM echo.
 
 echo.
 echo ========================================================================
@@ -106,5 +116,3 @@ echo =  %PRODUCT% %VERSION% %DEMO% Setup Complete.            =
 echo =                                                                      =
 echo ========================================================================
 echo.
-
-echo
