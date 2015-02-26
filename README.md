@@ -46,8 +46,7 @@ Once installed you can use the JBoss BPM Suite logins:
 Running the demo
 ----------------
 Build the project then kick off the process. An initial form will show for first name, last name, 
-flyer status {None, Bronze, Silver, Gold} - (side note, can't figure out how to order these), 
-Country Code, Zip if in US.  
+flyer status {None, Bronze, Silver, Gold}, Country Code, Zip if in US and number of bags lost.  
 
 If in US, will pass in zip code to zip code web service. Only the following zip codes will return 
 states. Any other zip will return Texas.
@@ -74,8 +73,6 @@ You are then shown the route the process took and the variables to confirm shipp
 
 See docs directory for included spreadsheet decision table and presentation with highlights.
 
-TODO: mavenize web service sources in projects directory.
-
 
 Supporting Articles
 -------------------
@@ -88,3 +85,6 @@ See the tagged releases for the following versions of the product:
 
 - v1.0 - JBoss BPM Suite 6.0.3 and baggage delivery demo installed.
 
+![Baggage Process](https://github.com/jbossdemocentral/bpms-baggage-delivery-demo/blob/master/docs/demo-images/baggage-process.png?raw=true)
+
+![Lost Form](https://github.com/jbossdemocentral/bpms-baggage-delivery-demo/blob/master/docs/demo-images/baggage-lost-form.png?raw=true)
