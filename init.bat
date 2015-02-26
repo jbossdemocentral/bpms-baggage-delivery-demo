@@ -84,7 +84,8 @@ echo.
 echo.
 echo - setting up web services...
 echo.
-xcopy /Y /Q "%SUPPORT_DIR%\ZipCodeServices.war" "%SERVER_DIR%"
+call mvn clean install -f %PRJ_DIR%\ZipCodeServices\pom.xml
+xcopy /Y /Q "%PRJ_DIR%\ZipCodeServices\target\ZipCodeServices-1.0.war" "%SERVER_DIR%"
 
 echo.
 echo - setting up standalone.xml configuration adjustments...

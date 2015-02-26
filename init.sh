@@ -77,7 +77,9 @@ cp -r $SUPPORT_DIR/bpm-suite-demo-niogit $SERVER_BIN/.niogit
 
 echo "  - setting up zip code services..."
 echo
-cp -r $SUPPORT_DIR/ZipCodeServices.war $SERVER_DIR
+#cp -r $SUPPORT_DIR/ZipCodeServices.war $SERVER_DIR
+mvn clean install -f $PRJ_DIR/ZipCodeServices/pom.xml
+cp $PRJ_DIR/ZipCodeServices/target/ZipCodeServices-1.0.war $SERVER_DIR
 
 echo
 echo "  - setting up standalone.xml configuration adjustments..."
