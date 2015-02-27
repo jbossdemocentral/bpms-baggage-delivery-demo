@@ -98,7 +98,8 @@ If not in US, county code is looked up in spreadsheet decision table and sets sh
 Finally, DSL is used to apply a promotion of free shipping and surcharge if passenger is of status Gold. 
 You are then shown the route the process took and the variables to confirm shipping and surcharges are correct.
 
-See docs directory for included spreadsheet decision table and presentation with highlights.
+See support directory for included spreadsheet decision table ( NonUSShippingCost.xls) and docs directory for 
+an overview presentation of the project.
 
 
 Supporting Articles
