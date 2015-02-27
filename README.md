@@ -3,7 +3,7 @@ JBoss BPM Suite Baggage Delivery Demo
 A baggage delivery service using BPM. A business friendly demo using form modeler, bpm process,
 decisions table web, spreadsheet, dsl and bam.  
 
-There are two options available to you for using this demo; local and OpenShift.
+There are three options available to you for using this demo; local, OpenShift and Docker.
 
 
 Option 1 - Install on your machine
@@ -42,6 +42,7 @@ Once installed you can use the JBoss BPM Suite logins:
 
    * u: mary   p: bpmsuite (manager)
 
+
 Option 3 - Generate docker install
 ----------------------------------
 The following steps can be used to configure and run the demo in a docker container
@@ -67,7 +68,6 @@ The following steps can be used to configure and run the demo in a docker contai
 7. Enjoy demo!
 
 Additional information can be found in the jbossdemocentral docker [developer repository](https://github.com/jbossdemocentral/docker-developer)
-
 
 
 Running the demo
@@ -109,6 +109,8 @@ None yet...
 Released versions
 -----------------
 See the tagged releases for the following versions of the product:
+
+- v1.1 - JBoss BPM Suite 6.0.3 and baggage delivery demo installed with optional generation of docker installation.
 
 - v1.0 - JBoss BPM Suite 6.0.3 and baggage delivery demo installed.
 
