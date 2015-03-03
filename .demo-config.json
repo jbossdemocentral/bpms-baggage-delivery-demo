@@ -1,0 +1,18 @@
+{
+  "name":"JBoss BPM Baggage Delivery",
+  "summary":"A baggage delivery service process, using form modeler, bpm process, decisions table web, spreadsheet, DSL and BAM. Install options - local, OpenShift and Docker.",
+  "author":"Jason Milliron, Andrew Block, Eric D. Schabell",
+  "categories":[“brms”,"bpms"],
+  "level":"Easy Peasy",
+  "published":true,
+  "prerequisites":"Java 1.7",
+  "targetProduct":"JBoss BPM Suite",
+  "productVersion":"JBoss BPM Suite 6.0.3 onwards",
+  "technologies": ["JBoss BPM Suite"],
+  "links": [ 
+    { 
+      "name":"Code",
+      "url":"https://github.com/jbossdemocentral/bpms-baggage-delivery-demo"
+    }
+  ]
+}
