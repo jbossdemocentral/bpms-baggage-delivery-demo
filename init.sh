@@ -1,6 +1,6 @@
 #!/bin/sh 
 DEMO="Baggage Delivery Demo"
-AUTHORS="Jason Milliron, Eric D. Schabell"
+AUTHORS="Jason Milliron, Andrew Block, Eric D. Schabell"
 PROJECT="git@github.com:jbossdemocentral/bpms-baggage-delivery-demo.git"
 PRODUCT="JBoss BPM Suite"
 JBOSS_HOME=./target/jboss-eap-6.1
@@ -30,7 +30,7 @@ echo "##     ####  #     #     #    ###  ##### #####   #   #####         ##"
 echo "##                                                                 ##"   
 echo "##                                                                 ##"   
 echo "##  brought to you by,                                             ##"   
-echo "##                     ${AUTHORS}            ##"
+echo "##       ${AUTHORS}            ##"
 echo "##                                                                 ##"   
 echo "##  ${PROJECT} ##"
 echo "##                                                                 ##"   

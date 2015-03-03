@@ -3,7 +3,7 @@ setlocal
 
 set PROJECT_HOME=%~dp0
 set DEMO=Baggage Delivery Demo
-set AUTHORS=Jason Milliron, Eric D. Schabell
+set AUTHORS=Jason Milliron, Andrew Block, Eric D. Schabell
 set PROJECT=git@github.com:jbossdemocentral/bpms-baggage-delivery-demo.git
 set PRODUCT=JBoss BPM Suite
 set JBOSS_HOME=%PROJECT_HOME%target\jboss-eap-6.1
@@ -33,7 +33,7 @@ echo ##     ####  #     #     #    ###  ##### #####   #   #####         ##
 echo ##                                                                 ##   
 echo ##                                                                 ##   
 echo ##  brought to you by,                                             ##   
-echo ##                     %AUTHORS%            ##
+echo ##       %AUTHORS%            ##
 echo ##                                                                 ##
 echo ##  %PROJECT% ##
 echo ##                                                                 ##
