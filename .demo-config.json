@@ -13,6 +13,10 @@
     { 
       "name":"Code",
       "url":"https://github.com/jbossdemocentral/bpms-baggage-delivery-demo"
+    },
+    { 
+      "name":"Install bpmPaaS",
+      "url":"https://openshift.redhat.com/app/console/application_type/custom?&cartridges[]=https://raw.githubusercontent.com/jbossdemocentral/cartridge-bpmPaaS-baggage-delivery-demo/master/metadata/manifest.yml&name=baggagedelivery&gear_profile=medium&initial_git_url="
     }
   ]
 }
