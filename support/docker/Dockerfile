@@ -14,6 +14,11 @@ ENV BPMS_VERSION_BUILD redhat-1
 # ADD Installation Files
 COPY support/installation-bpms support/installation-bpms.variables installs/jboss-bpms-installer-$BPMS_VERSION_MAJOR.$BPMS_VERSION_MINOR.$BPMS_VERSION_MICRO.GA-$BPMS_VERSION_BUILD.jar  /opt/jboss/
 
+# Make sure permissions are correct
+USER root
+RUN chmod -R a+r /opt/jboss
+USER jboss 
+
 # Configure project prerequisites and run installer and cleanup installation components
 RUN mkdir -p /opt/jboss/bpms-projects \
   && sed -i "s:<installpath>.*</installpath>:<installpath>$BPMS_HOME</installpath>:" /opt/jboss/installation-bpms \
