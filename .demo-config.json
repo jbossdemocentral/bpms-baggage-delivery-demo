@@ -1,8 +1,6 @@
 {
   "name":"JBoss BPM Baggage Delivery Demo",
-  "summary":"A baggage delivery service process, using form modeler, bpm process, decisions table web, spreadsheet, DSL and BAM. 
-
-Install options - local, OpenShift and Docker.",
+  "summary":"A baggage delivery service process, using form modeler, bpm process, decisions table web, spreadsheet, DSL and BAM. Install options - local, OpenShift and Docker.",
   "author":"Jason Milliron, Andrew Block, Eric D. Schabell",
   "categories":["brms","bpms"],
   "level":"Easy Peasy",
