@@ -110,6 +110,8 @@ Released versions
 -----------------
 See the tagged releases for the following versions of the product:
 
+- v1.2 - JBoss BPM Suite 6.1 and baggage delivery demo installed.
+
 - v1.1 - JBoss BPM Suite 6.0.3 and baggage delivery demo installed with optional generation of docker installation.
 
 - v1.0 - JBoss BPM Suite 6.0.3 and baggage delivery demo installed.
