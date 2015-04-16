@@ -6,15 +6,16 @@ set DEMO=Baggage Delivery Demo
 set AUTHORS=Jason Milliron, Andrew Block, Eric D. Schabell
 set PROJECT=git@github.com:jbossdemocentral/bpms-baggage-delivery-demo.git
 set PRODUCT=JBoss BPM Suite
-set JBOSS_HOME=%PROJECT_HOME%target\jboss-eap-6.1
+set JBOSS_HOME=%PROJECT_HOME%target\jboss-eap-6.4
 set SERVER_DIR=%JBOSS_HOME%\standalone\deployments\
 set SERVER_CONF=%JBOSS_HOME%\standalone\configuration\
 set SERVER_BIN=%JBOSS_HOME%\bin
 set SRC_DIR=%PROJECT_HOME%installs
 set SUPPORT_DIR=%PROJECT_HOME%support
 set PRJ_DIR=%PROJECT_HOME%projects
-set BPMS=jboss-bpms-installer-6.0.3.GA-redhat-1.jar
-set VERSION=6.0.3
+set BPMS=jboss-bpmsuite-6.1.0.GA-installer.jar
+set EAP=jboss-eap-6.4.0-installer.jar
+set VERSION=6.1
 
 REM wipe screen.
 cls
@@ -41,6 +42,16 @@ echo #####################################################################
 echo.
 
 REM make some checks first before proceeding.	
+if exist %SRC_DIR%\%EAP% (
+        echo Product sources are present...
+        echo.
+) else (
+        echo Need to download %EAP% package from the Customer Support Portal
+        echo and place it in the %SRC_DIR% directory to proceed...
+        echo.
+        GOTO :EOF
+)
+
 if exist %SRC_DIR%\%BPMS% (
         echo Product sources are present...
         echo.
@@ -58,8 +69,21 @@ if exist %JBOSS_HOME% (
          rmdir /s /q target"
  )
 
-REM Run installer.
-echo Product installer running now...
+REM Run installers.
+echo EAP installer running now...
+echo.
+call java -jar %SRC_DIR%/%EAP% %SUPPORT_DIR%\installation-eap -variablefile %SUPPORT_DIR%\installation-eap.variables
+
+
+if not "%ERRORLEVEL%" == "0" (
+  echo.
+	echo Error Occurred During JBoss EAP Installation!
+	echo.
+	GOTO :EOF
+)
+
+echo
+echo BPM Suite installer running now...
 echo.
 call java -jar %SRC_DIR%/%BPMS% %SUPPORT_DIR%\installation-bpms -variablefile %SUPPORT_DIR%\installation-bpms.variables
 
@@ -86,6 +110,10 @@ echo - setting up web services...
 echo.
 call mvn clean install -f %PRJ_DIR%\ZipCodeServices\pom.xml
 xcopy /Y /Q "%PRJ_DIR%\ZipCodeServices\target\ZipCodeServices-1.0.war" "%SERVER_DIR%"
+
+echo - setup email task notification users...
+echo.
+xcopy "%SUPPORT_DIR%\userinfo.properties" "%SERVER_DIR%\business-central.war\WEB-INF\classes\"
 
 echo.
 echo - setting up standalone.xml configuration adjustments...
