@@ -5,38 +5,44 @@ FROM jbossdemocentral/developer
 MAINTAINER Andrew Block <andy.block@gmail.com>
 
 # Environment Variables 
-ENV BPMS_HOME /opt/jboss/bpms
+ENV BPMS_HOME /opt/jboss/bpms/jboss-eap-6.4
 ENV BPMS_VERSION_MAJOR 6
-ENV BPMS_VERSION_MINOR 0
-ENV BPMS_VERSION_MICRO 3
-ENV BPMS_VERSION_BUILD redhat-1
+ENV BPMS_VERSION_MINOR 1
+ENV BPMS_VERSION_MICRO 0
+ENV BPMS_VERSION_BUILD GA
+
+ENV EAP_VERSION_MAJOR 6
+ENV EAP_VERSION_MINOR 4
+ENV EAP_VERSION_MICRO 0
 
 # ADD Installation Files
-COPY support/installation-bpms support/installation-bpms.variables installs/jboss-bpms-installer-$BPMS_VERSION_MAJOR.$BPMS_VERSION_MINOR.$BPMS_VERSION_MICRO.GA-$BPMS_VERSION_BUILD.jar  /opt/jboss/
+COPY support/installation-bpms support/installation-eap support/installation-bpms.variables support/installation-eap.variables installs/jboss-bpmsuite-$BPMS_VERSION_MAJOR.$BPMS_VERSION_MINOR.$BPMS_VERSION_MICRO.$BPMS_VERSION_BUILD-installer.jar installs/jboss-eap-$EAP_VERSION_MAJOR.$EAP_VERSION_MINOR.$EAP_VERSION_MICRO-installer.jar  /opt/jboss/
 
-# Make sure permissions are correct
+# Update Permissions on Installers
 USER root
-RUN chmod -R a+r /opt/jboss
-USER jboss 
+RUN chown jboss:jboss /opt/jboss/jboss-eap-$EAP_VERSION_MAJOR.$EAP_VERSION_MINOR.$EAP_VERSION_MICRO-installer.jar /opt/jboss/jboss-bpmsuite-$BPMS_VERSION_MAJOR.$BPMS_VERSION_MINOR.$BPMS_VERSION_MICRO.$BPMS_VERSION_BUILD-installer.jar 
+USER jboss
 
-# Configure project prerequisites and run installer and cleanup installation components
-RUN mkdir -p /opt/jboss/bpms-projects \
-  && sed -i "s:<installpath>.*</installpath>:<installpath>$BPMS_HOME</installpath>:" /opt/jboss/installation-bpms \
-  && java -jar /opt/jboss/jboss-bpms-installer-$BPMS_VERSION_MAJOR.$BPMS_VERSION_MINOR.$BPMS_VERSION_MICRO.GA-$BPMS_VERSION_BUILD.jar  /opt/jboss/installation-bpms -variablefile /opt/jboss/installation-bpms.variables \
-  && rm -rf /opt/jboss/jboss-bpms-installer-$BPMS_VERSION_MAJOR.$BPMS_VERSION_MINOR.$BPMS_VERSION_MICRO.GA-$BPMS_VERSION_BUILD.jar /opt/jboss/installation-bpms /opt/jboss/installation-bpms.variables $BPMS_HOME/jboss-eap-6.1/standalone/configuration/standalone_xml_history/
+# Prepare and run installer and cleanup installation components
+RUN sed -i "s:<installpath>.*</installpath>:<installpath>$BPMS_HOME</installpath>:" /opt/jboss/installation-eap \
+    && sed -i "s:<installpath>.*</installpath>:<installpath>$BPMS_HOME</installpath>:" /opt/jboss/installation-bpms \
+	&& java -jar /opt/jboss/jboss-eap-$EAP_VERSION_MAJOR.$EAP_VERSION_MINOR.$EAP_VERSION_MICRO-installer.jar  /opt/jboss/installation-eap -variablefile /opt/jboss/installation-eap.variables \
+	&& java -jar /opt/jboss/jboss-bpmsuite-$BPMS_VERSION_MAJOR.$BPMS_VERSION_MINOR.$BPMS_VERSION_MICRO.$BPMS_VERSION_BUILD-installer.jar  /opt/jboss/installation-bpms -variablefile /opt/jboss/installation-bpms.variables \
+	&& rm -rf /opt/jboss/jboss-bpmsuite-$BPMS_VERSION_MAJOR.$BPMS_VERSION_MINOR.$BPMS_VERSION_MICRO.$BPMS_VERSION_BUILD-installer.jar /opt/jboss/jboss-eap-$EAP_VERSION_MAJOR.$EAP_VERSION_MINOR.$EAP_VERSION_MICRO-installer.jar /opt/jboss/installation-bpms /opt/jboss/installation-bpms.variables /opt/jboss/installation-eap /opt/jboss/installation-eap.variables $BPMS_HOME/standalone/configuration/standalone_xml_history/
 
 # Copy demo and support files
-COPY support/bpm-suite-demo-niogit $BPMS_HOME/jboss-eap-6.1/bin/.niogit
+COPY support/bpm-suite-demo-niogit $BPMS_HOME/bin/.niogit
 COPY projects /opt/jboss/bpms-projects
-COPY support/application-roles.properties support/standalone.xml $BPMS_HOME/jboss-eap-6.1/standalone/configuration/
+COPY support/userinfo.properties $BPMS_HOME/standalone/deployments/business-central.war/WEB-INF/classes/
+COPY support/application-roles.properties support/standalone.xml $BPMS_HOME/standalone/configuration/
 
 # Swtich back to root user to perform build and cleanup
 USER root
 
 # Run Demo Maven build and cleanup
 RUN mvn clean install -f /opt/jboss/bpms-projects/ZipCodeServices/pom.xml \
-  && cp -r /opt/jboss/bpms-projects/ZipCodeServices/target/ZipCodeServices-1.0.war $BPMS_HOME/jboss-eap-6.1/standalone/deployments/ \
-  && chown -R jboss:jboss $BPMS_HOME/jboss-eap-6.1/bin/.niogit $BPMS_HOME/jboss-eap-6.1/standalone/configuration/application-roles.properties $BPMS_HOME/jboss-eap-6.1/standalone/configuration/standalone.xml $BPMS_HOME/jboss-eap-6.1/standalone/deployments/ZipCodeServices-1.0.war \
+  && cp -r /opt/jboss/bpms-projects/ZipCodeServices/target/ZipCodeServices-1.0.war $BPMS_HOME/standalone/deployments/ \
+  && chown -R jboss:jboss $BPMS_HOME/bin/.niogit $BPMS_HOME/standalone/configuration/application-roles.properties $BPMS_HOME/standalone/configuration/standalone.xml $BPMS_HOME/standalone/deployments/ZipCodeServices-1.0.war $BPMS_HOME/standalone/deployments/business-central.war/WEB-INF/classes/userinfo.properties \
   && rm -rf ~/.m2/repository /opt/jboss/bpms-projects  
 
 # Run as JBoss 
@@ -46,4 +52,4 @@ USER jboss
 EXPOSE 9990 9999 8080
 
 # Run BPMS
-CMD ["/opt/jboss/bpms/jboss-eap-6.1/bin/standalone.sh","-c","standalone.xml","-b", "0.0.0.0","-bmanagement","0.0.0.0"]
+CMD ["/opt/jboss/bpms/jboss-eap-6.4/bin/standalone.sh","-c","standalone.xml","-b", "0.0.0.0","-bmanagement","0.0.0.0"]
