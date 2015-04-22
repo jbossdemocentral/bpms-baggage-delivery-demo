@@ -105,7 +105,7 @@ an overview presentation of the project.
 
 Supporting Articles
 -------------------
-None yet...
+![JBoss BPM Baggage Delivery Helping Travelers with Lost Bags](http://www.schabell.org/2015/03/jboss-bpmsuite-helping-travelers-with-lost-bags.html)
 
 
 Released versions
