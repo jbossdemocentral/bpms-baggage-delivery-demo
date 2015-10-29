@@ -1,5 +1,5 @@
 id: jbossdemocentral-bpms-baggage-delivery
-title: A baggage delivery service using a business friendly form modeler, bpm process, decisions table web, spreadsheet, dsl and bam. 
+title: JBoss BPM Suite Baggage Delivery Demo
 github_repo_url: https://github.com/jbossdemocentral/bpms-baggage-delivery-demo
 technologies:
   - JBoss EAP
