@@ -101,7 +101,8 @@ echo.
 call %JBOSS_HOME%/bin/jboss-cli.bat --command="patch apply %SRC_DIR%/%EAP_PATCH% --override-all"
 
 if not "%ERRORLEVEL%" == "0" (
-	echo Error Occurred During %PRODUCT% Installation!
+  echo.
+	echo Error Occurred During JBoss EAP Patch Installation!
 	echo.
 	GOTO :EOF
 )
