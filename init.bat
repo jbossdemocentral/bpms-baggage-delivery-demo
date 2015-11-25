@@ -93,11 +93,18 @@ if not "%ERRORLEVEL%" == "0" (
 	GOTO :EOF
 )
 
+call set NOPAUSE=true
+
 echo.
 echo Applying JBoss EAP patch now...
 echo.
-call %JBOSS_HOME%/bin/jboss-cli.bat --command='patch apply %SRC_DIR%/%EAP_PATCH%'
+call %JBOSS_HOME%/bin/jboss-cli.bat --command="patch apply %SRC_DIR%/%EAP_PATCH% --override-all"
 
+if not "%ERRORLEVEL%" == "0" (
+	echo Error Occurred During %PRODUCT% Installation!
+	echo.
+	GOTO :EOF
+)
 
 echo
 echo BPM Suite installer running now...
@@ -130,7 +137,7 @@ xcopy /Y /Q "%PRJ_DIR%\ZipCodeServices\target\ZipCodeServices-1.0.war" "%SERVER_
 
 echo - setup email task notification users...
 echo.
-xcopy "%SUPPORT_DIR%\userinfo.properties" "%SERVER_DIR%\business-central.war\WEB-INF\classes\"
+xcopy /Y /Q "%SUPPORT_DIR%\userinfo.properties" "%SERVER_DIR%\business-central.war\WEB-INF\classes\"
 
 echo.
 echo - setting up standalone.xml configuration adjustments...
