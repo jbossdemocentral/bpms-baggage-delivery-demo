@@ -114,7 +114,7 @@ Released versions
 -----------------
 See the tagged releases for the following versions of the product:
 
-- v1.3 - JBoss BPM Suite 6.2.0, JBoss EAP 6.4.3 and baggage delivery demo installed.
+- v1.3 - JBoss BPM Suite 6.2.0, JBoss EAP 6.4.4 and baggage delivery demo installed.
 
 - v1.2 - JBoss BPM Suite 6.1 and baggage delivery demo installed.
 
