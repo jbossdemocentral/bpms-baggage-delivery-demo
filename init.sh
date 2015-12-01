@@ -120,11 +120,11 @@ echo
 mvn clean install -f $PRJ_DIR/ZipCodeServices/pom.xml
 cp $PRJ_DIR/ZipCodeServices/target/ZipCodeServices-1.0.war $SERVER_DIR
 
+echo
 echo "  - setup email task notification users..."
 echo
 cp $SUPPORT_DIR/userinfo.properties $SERVER_DIR/business-central.war/WEB-INF/classes/
 
-echo
 echo "  - setting up standalone.xml configuration adjustments..."
 echo
 cp $SUPPORT_DIR/standalone.xml $SERVER_CONF
