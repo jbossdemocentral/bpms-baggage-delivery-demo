@@ -23,28 +23,9 @@ Option 1 - Install on your machine
     ```
 
 
-Option 2 - Generate containerized installation
-----------------------------------------------
-The following steps can be used to configure and run the demo in a container
-
-1. [Download and unzip.](https://github.com/eschabell/bpms-baggage-delivery-demo/archive/master.zip)
-
-2. Add products to installs directory. For example download and add BPMS installer jar into the installs directory.
-
-3. Copy contents of support/docker directory to the project root.
-
-4. Build demo image.
-
-	```
-	docker build -t eschabell/bpms-baggage-delivery-demo .
-	```
-5. Start demo container.
-
-	```
-	docker run -it -p 8080:8080 -p 9990:9990 eschabell/bpms-baggage-delivery-demo
-	```
-
-Login to http://localhost:8080/business-central (u:erics / p:bpmsuite1!)
+Option 2 - Install on OpenShift
+-------------------------------
+Running this demo in a container on any OpenShift Container Platform is [available at Red Hat Demo Central](https://github.com/redhatdemocentral/rhcs-baggage-delivery-demo).
 
 
 Running the demo
@@ -90,7 +71,7 @@ Released versions
 -----------------
 See the tagged releases for the following versions of the product:
 
-- v1.6 - Forked back from JBoss Demo Central for updating to JBoss BPM Suite 6.4.0, JBoss EAP 7.0.0, baggage delivery demo installed locally, containerized or on any OpenShift installation.
+- v1.6 - Updated to JBoss BPM Suite 6.4.0, JBoss EAP 7.0.0, baggage delivery demo installed locally or on any OpenShift installation.
 
 - v1.5 - JBoss BPM Suite 6.2.0-BZ-1299002 on JBoss EAP 6.4.4 and baggage delivery demo installed.
 
